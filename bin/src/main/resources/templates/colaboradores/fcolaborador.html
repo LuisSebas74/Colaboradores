@@ -2,6 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="head.html">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="tipo_contenido"  content="text/html;" http-equiv="content-type" charset="utf-8">
 
 	<title>Registro de colaborador</title>
 </head>
@@ -20,7 +24,7 @@
 			<div class="row">
 				<div class="col-12">
 					<form action="/colaboradores/vistas/registro" method="post" id="envioDatos"
-						th:object="${colaboradorDTO}">
+						th:object="${colaboradorDTO}" >
 						<div class="row">
 							<div class="col-12">
 								<input th:value="${colaboradorDTO.idColaborador}" type="hidden" name="idColaborador"
@@ -32,7 +36,7 @@
 							<div class="col-4">
 								<label for="Nempleado" class="form-label"><b>Nombre del colaborador</b></label>
 								<input th:value="${colaboradorDTO.nombre}" type="text" class="form-control col-4"
-									name="nombre" id="nombreColaborador" minlength="5" pattern="[A-Za-z, ,]+"
+									name="nombre" id="nombreColaborador" minlength="5" pattern="[A-Za-zÁ-Úá-ú, ,]+"
 									placeholder=" ** Ingresa el nombre completo del colaborador" required autofocus
 									oninput="validador('nombreColaborador','letras')" maxlength="80"
 									th:disabled="${desactivaCampos != null}">
@@ -203,10 +207,11 @@
 								</select>
 							</div>
 							<div class="col-4">
-							<label for="pais"><b>Skills</b></label> <select class="form-control col-sm-4"
-									id="itemCatalogoSkills" value="" name="idSkill" required
-									th:disabled="${desactivaCampos != null}">
-									<option value="0" selected>Selecciona una opcion</option>
+							<label for="pais"><b>Skills</b></label>
+							   <select class="form-control col-sm-4"
+									id="itemCatalogoSkills" value="" size="0" name="idskill" required
+									th:disabled="${desactivaCampos != null}" >
+									<option value="0" selected></option>
 									<option th:each="skillsItem: ${catalogoSkillList}" th:value="${skillsItem.id}"
 										th:text="${skillsItem.titulo}">
 										<!--th:selected="${skillItem.id==colaboradorDTO.idSkill}"-->

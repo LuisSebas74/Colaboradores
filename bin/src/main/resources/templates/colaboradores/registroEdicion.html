@@ -34,11 +34,11 @@
 								<label for="Nempleado" class="form-label"><b>Nombre
 										del colaborador</b></label> <input th:value="${colaboradorDTO.nombre}"
 									th:field="${colaboradorDTO.nombre}" type="text" class="form-control col-sm-4"
-									name="nombre" id="nombreColaborador" minlength="5" pattern="[A-Za-z\s]+"
+									name="nombre" id="nombreColaborador" minlength="5" pattern="[A-Za-zÁ-Úá-ú, ,]+"
 									placeholder=" ** Ingresa el nombre completo del colaborador" required autofocus
 									oninput="validador('nombreColaborador','letras')" maxlength="80"
 									readonly>
-							</div>
+							</div> 
 							<div class="col-4">
 
 							</div>

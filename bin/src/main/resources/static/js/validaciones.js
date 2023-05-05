@@ -2,6 +2,7 @@ const formulario = document.getElementById("envioDatos");
 
 formulario.addEventListener("submit", function(evento) {
 
+
 	const itemCatalogoTipoColaborador = document.getElementById("itemCatalogoTipoColaborador").value;
 	const itemCatalogoEspecialidad = document.getElementById("itemCatalogoEspecialidad").value;
 	const itemCatalogoTipoEmpresa = document.getElementById("itemCatalogoTipoEmpresa").value;
@@ -129,11 +130,15 @@ function validador(id, tipoDato) {
 
 	switch (tipoDato) {
 
-		case 'letras':
+	/*	case 'letras':
 			inputData.value = inputData.value.replace(/[^a-zA-Z ]/g, '');
 			inputData.value = inputData.value.toUpperCase();
 			break;
-
+*/
+        case 'letras':
+			inputData.value = inputData.value.replace(/[^a-zA-ZÀ-ÿ ]/g, '');
+			inputData.value = inputData.value.toUpperCase();
+        break;
 		case 'numeros':
 			inputData.value = inputData.value.replace(/\D/g, '');
 			break;
