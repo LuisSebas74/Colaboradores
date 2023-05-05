@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/estilos.css">
+<script src="https://kit.fontawesome.com/41bcea2ae3.js"
+	crossorigin="anonymous"></script> 
+<title>Iniciativas</title>
+</head>
+
+<body id="body">
+	<div th:include="menu.html"></div>
+
+	<main>
+		<div class="grid-container">
+			<span>
+				<h1>INICIATIVAS</h1>
+			</span>
+			<div class="container">
+					<button id="btn-agregar" class="btn btn-primary"
+						onclick="location='/iniciativas/vistas/registrar'">
+						AGREGAR <i class="fa-solid fa-plus"></i>
+					</button>
+
+				<div class="d-flex flex-row-reverse">
+					<div class="input-container">
+						<form action="/iniciativas/vistas/listar" method="get">
+							<input type="button" class="btn btn-secondary" value="Regresar" onclick="location='/iniciativas/vistas/listar'">
+							
+							<select class="select1 btn btn-primary" id="ItemsCatalogoTipo" value=""
+															name="idTipoProyecto">
+															<option value="0" selected>Tipo</option>
+															<option th:each="tipoItem: ${catalogoTipoList}"
+																th:value="${tipoItem.id}" th:text="${tipoItem.titulo}"
+																th:selected="${tipoItem.id==iniciativaDTO.idTipoProyecto}">
+															</option>
+														</select>
+														<select class="select1 btn btn-primary" id="ItemsCatalogoEstatus" value=""
+															name="idEstatus">
+															<option value="0" selected>Estatus</option>
+															<option th:each="estatusItem: ${catalogoEstatusList}"
+																th:value="${estatusItem.id}"
+																th:text="${estatusItem.titulo}"
+																th:selected="${estatusItem.id==iniciativaDTO.idEstatus}">
+															</option>
+														</select>
+<!-- 							<select class="select1 btn btn-primary" name="tipo" value=""> -->
+<!-- 								<option value="0" selected>Tipo</option> -->
+<!-- 								<option value="1">Continuidad operativa</option> -->
+<!-- 								<option value="2">Itinerario</option> -->
+<!-- 								<option value="3">Normativo</option> -->
+<!-- 								<option value="4">Petición Negocios</option> -->
+<!-- 								<option value="5">Proyecto</option> -->
+<!-- 							</select> <select class="select2 btn btn-primary" name="estatus" value=""> -->
+<!-- 								<option value="0" selected>Estatus</option> -->
+<!-- 								<option value="1">Desarrollo</option> -->
+<!-- 								<option value="2">Analisis</option> -->
+<!-- 								<option value="3">Por validar</option> -->
+<!-- 								<option value="4">Pruebas</option> -->
+<!-- 								<option value="5">Seguimineto</option> -->
+<!-- 								<option value="6">Instalada</option> -->
+<!-- 								<option value="7">Piloto</option> -->
+<!-- 							</select>  -->
+							<input type="text" id="tituloIniciativa" placeholder="Buscar" value=""
+								name="tituloIniciativa">
+								<input type="submit" value="Buscar"
+								class="btn btn-primary">
+						</form>
+					</div>
+				</div>
+
+			</div>
+			<mat-grid-list cols="1"> <mat-grid-tile>
+			<mat-card class="dashboard-card">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">ID</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Porcentaje de avance</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="iniciativa: ${listaIniciativas}"
+						data-bs-toggle="modal" data-bs-target="#exampleModal"  th:attr="onclick='seleccionarFilaIniciativa(\'' + ${iniciativa.folio} + '\')'">
+						<th th:text="${iniciativa.contador}" scope="row"></th>
+						<td th:text="${iniciativa.folio}"></td>
+						<td th:text="${iniciativa.tituloIniciativa}"></td>
+						<td>
+							<div class="progress progress-xs progress-striped active">
+								<div class="progress-bar bg-primary"
+									th:style="'width: ' + ${iniciativa.porcentajeAvance} + '%'"></div>
+							</div>
+						</td>
+						<td><span class="badge bg-primary"
+							th:text="${iniciativa.porcentajeAvance} + '%'"></span></td>
+					</tr>
+				</tbody>
+
+
+
+			</table>
+			<!-- Button trigger modal --> <!-- Modal -->
+
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true"
+				data-bs-backdrop="false">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						
+			
+					</div>
+				</div>
+			</div>
+
+
+			</mat-card> </mat-grid-tile> </mat-grid-list>
+		</div>
+	</main>
+	<script src="/js/menu.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/validacionesIniciativas.js"></script>
+</body>
+
+</html>

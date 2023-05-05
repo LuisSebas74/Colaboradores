@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/estilos.css">
+	<title>Colaboradores</title>
+</head>
+
+<body id="body">
+	<div th:include="menu.html"></div>
+	<main>
+		<div class="grid-container">
+			<div class="row">
+				<div class="col-12">
+					<h3 th:text="${tituloPagina}"></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<form action="/colaboradores/vistas/registro" method="post" id="envioDatos"
+						th:object="${colaboradorDTO}">
+						<div class="row">
+							<div class="col-12">
+								<input th:value="${colaboradorDTO.idColaborador}" type="hidden" name="idColaborador"
+									class="form-control">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-4">
+								<label for="Nempleado" class="form-label"><b>Nombre
+										del colaborador</b></label> <input th:value="${colaboradorDTO.nombre}"
+									th:field="${colaboradorDTO.nombre}" type="text" class="form-control col-sm-4"
+									name="nombre" id="nombreColaborador" minlength="5" pattern="[A-Za-zÁ-Úá-ú, ,]+"
+									placeholder=" ** Ingresa el nombre completo del colaborador" required autofocus
+									oninput="validador('nombreColaborador','letras')" maxlength="80"
+									readonly>
+							</div> 
+							<div class="col-4">
+
+							</div>
+							<div class="col-4">
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-2">
+								<input type="submit" value="Guardar" class="btn btn-success"></input>
+							</div>
+							<!-- <div th:utext="${button}" class="col-2"></div> -->
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="/js/fontAwesome.js"></script>
+	<script src="/js/menu.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/validaciones.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="head.html">
+<title>Iniciativas</title>
+</head>
+<body id="body">
+	<div th:include="menu.html"></div>
+	<main>
+		<div class="container">
+			<span><h1>FORMULARIO DE INICIATIVA</h1></span>
+			<mat-grid-list cols="1"> <mat-grid-tile>
+			<mat-card class="dashboard-card">
+			<form action="/iniciativas/vistas/registro" method="post"
+				id="enviarDatos">
+				<div>
+					<div class="accordion" id="accordionExample">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="headingOne">
+								<button class="accordion-button" type="button"
+									data-bs-toggle="collapse" data-bs-target="#collapseOne"
+									aria-expanded="true" aria-controls="collapseOne">
+									REGISTRO</button>
+							</h2>
+
+							<div id="collapseOne"
+								class="accordion-collapse collapse collapse show"
+								aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+
+									<input type="hidden" class="form-control"
+										th:value="${iniciativaDTO.idIniciativa}" name="idIniciativa"
+										id="Idiniciativa" minlength="2" maxlength="10"
+										|pattern="[0-9]{2,10}" required>
+									<div class="row">
+										<div class="col-sm-4">
+											<label for="exampleInputEmail1" class="form-label"><b>
+													Nombre iniciativa</b></label> <input type="text" class="form-control"
+												th:value="${iniciativaDTO.tituloIniciativa}"
+												name="tituloIniciativa" id="Niniciativa"
+												aria-describedby="Niniciativa" minlength="5" maxlength="100"
+												pattern="[A- Za -z ]+" required autofocus
+												oninput="validadorIniciativa('Niniciativa','alfanum')">
+										</div>
+										<div class="col-sm-4">
+											<label for="Solicitante" class="form-label"><b>Solicitante</b></label>
+											<select class="form-control" id="ItemsCatalogoSolicitantes"
+												value="" name="idSolicitante">
+												<option value="0" selected><b>Selecciona una
+														opción</b></option>
+												<option
+													th:each="solicitanteItem: ${catalogoSolicitanteList}"
+													th:value="${solicitanteItem.id}"
+													th:text="${solicitanteItem.titulo}"></option>
+											</select>
+										</div>
+										<div class="col-sm-4">
+											<label for="Nestrategica" class="form-label"><b>Nombre
+													iniciativa estratégica</b></label> <input type="input"
+												class="form-control"
+												th:value="${iniciativaDTO.iniciativaEstrategica}"
+												name="iniciativaEstrategica" id="Nestrategica" minlength="5"
+												maxlength="100" pattern="[A- Za -z ]+" required
+												oninput="validadorIniciativa('Nestrategica','alfanum')">
+										</div>
+									</div>
+									<br>
+									<div class="row">
+
+										<div class="col-sm-4">
+											<label for="Folio" class="form-label"><b>Folio</b></label> <input
+												type="input" class="form-control"
+												th:value="${iniciativaDTO.folio}" name="folio" id="Folio"
+												minlength="5" maxlength="10" required
+												oninput="validadorIniciativa('Folio','alfanum')">
+										</div>
+
+										<div class="col-sm-4">
+											<label for="Festrategica" class="form-label"><b>Folio
+													iniciativa asociada</b></label> <input type="input"
+												class="form-control"
+												th:value="${iniciativaDTO.folioIniciativaAsociada}"
+												name="folioIniciativaAsociada" id="Festrategica"
+												minlength="5" maxlength="10" required
+												oninput="validadorIniciativa('Festrategica','alfanum')">
+										</div>
+
+										<div class="col-sm-4">
+											<label for="Cnegocio" class="form-label"><b>Número
+													de iniciativa</b></label> <input type="input" class="form-control"
+												th:value="${iniciativaDTO.numIniciativa}"
+												name="numIniciativa" id="Iestrategica" minlength="2"
+												maxlength="10" required
+												oninput="validadorIniciativa('Iestrategica','alfanum')">
+										</div>
+									</div>
+
+									<br>
+									<div class="row">
+										<div class="col-sm-4">
+											<label for="Cnegocio" class="form-label"><b>Fecha
+													inicio</b></label> <input type="date" class="form-control"
+												th:value="${iniciativaDTO.fechaInicio}" name="fechaInicio"
+												id="fechainicio">
+										</div>
+										<div class="col-sm-4">
+											<label for="Cnegocio" class="form-label"><b>Fecha
+													estimada</b></label> <input type="date" class="form-control"
+												th:value="${iniciativaDTO.timeReport}" name="timeReport"
+												id="Festimada">
+										</div>
+										<div class="col-sm-4">
+											<label for="Cnegocio" class="form-label"><b>Fecha
+													fin</b></label> <input type="date" class="form-control"
+												th:value="${iniciativaDTO.fechaFin}" name="fechaFin"
+												id="Ffin">
+										</div>
+									</div>
+
+									<br>
+									<div class="row">
+
+										<div class="col-sm-4">
+											<label for="Descripcion" class="form-label"><b>Descripción</b></label>
+											<input type="input" class="form-control"
+												th:value="${iniciativaDTO.descripcion}" name="descripcion"
+												id="Descripcion" aria-describedby="Descripcion"
+												minlength="5" maxlength="200" pattern="[A- Za -z ]+"
+												required
+												oninput="validadorIniciativa('Descripcion','letras')">
+										</div>
+
+										<div class="col-sm-4">
+											<label for="Tipo" class="form-label"><b>Tipo</b></label> <select
+												class="form-control" id="ItemsCatalogoTipo" value=""
+												name="idTipoProyecto">
+												<option value="0" selected><b>Selecciona una
+														opción</b></option>
+												<option th:each="tipoItem: ${catalogoTipoList}"
+													th:value="${tipoItem.id}" th:text="${tipoItem.titulo}"
+													th:selected="${tipoItem.id==iniciativaDTO.idTipoProyecto}">
+												</option>
+											</select>
+										</div>
+
+										<div class="col-sm-4">
+											<label for="Nintegrantes" class="form-label"><b>Número
+													de integrantes</b></label> <input type="input" class="form-control"
+												th:value="${iniciativaDTO.numIntegrantes}"
+												name="numIntegrantes" id="Nintegrantes"
+												aria-describedby="Nintegrantes" pattern="[0-9]{1,10}"
+												required
+												oninput="validadorIniciativa('Nintegrantes','numeros')">
+										</div>
+
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-4">
+											<label for="Moperativo" class="form-label"><b>Modelo
+													operativo</b></label> <select class="form-control"
+												id="ItemsCatalogoMOperativo" value="" name="idModOp">
+												<option value="0" selected><b>Selecciona una
+														opción</b></option>
+												<option th:each="moperativosItem: ${catalogoMOperativoList}"
+													th:value="${moperativosItem.id}"
+													th:text="${moperativosItem.titulo}"
+													th:selected="${moperativosItem.id==iniciativaDTO.idModOp}">
+												</option>
+											</select>
+										</div>
+										<div class="col-sm-4">
+											<label for="Porcentaje" class="form-label"><b>Porcentaje</b></label>
+											<input type="input" class="form-control"
+												th:value="${iniciativaDTO.porcentajeAvance}"
+												name="porcentajeAvance" id="Porcentaje"
+												aria-describedby="Porcentaje" minlength="1" maxlength="3"
+												oninput="validadorIniciativa('Porcentaje','porcentaje')"
+												required>
+										</div>
+
+										<div class="col-sm-4">
+											<label for="Datencion" class="form-label"><b>Dirección
+													de atención</b></label> <select class="form-control"
+												id="ItemsCatalogoDireccion" value="" name="idDireccion">
+												<option value="0" selected><b>Selecciona una
+														opción</b></option>
+												<option th:each="direccionItem: ${catalogoDireccionList}"
+													th:value="${direccionItem.id}"
+													th:text="${direccionItem.titulo}"
+													th:selected="${direccionItem.id==iniciativaDTO.idDireccion}">
+												</option>
+											</select>
+										</div>
+
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-4">
+											<label for="iniciativaasociada" class="form-label"><b>Iniciativa
+													asociada</b> </label> <input type="input" class="form-control"
+												th:value="${iniciativaDTO.iniciativaAsociada}"
+												name="iniciativaAsociada" id="Datencion" minlength="5"
+												maxlength="100" pattern="[A- Za -z ]+" required
+												oninput="validadorIniciativa('Datencion','alfanum')">
+										</div>
+
+										<div class="col-sm-4">
+											<label for="Estatus" class="form-label"><b>Estatus</b></label>
+											<select class="form-control" id="ItemsCatalogoEstatus"
+												value="" name="idEstatus">
+												<option value="0" selected><b>Selecciona una
+														opción</b></option>
+												<option th:each="estatusItem: ${catalogoEstatusList}"
+													th:value="${estatusItem.id}"
+													th:text="${estatusItem.titulo}"
+													th:selected="${estatusItem.id==iniciativaDTO.idEstatus}">
+												</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+
+					</div>
+				</div>
+		</div>
+
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-4">
+				<input type="submit" class="btn btn-primary" value="Guardar">
+			</div>
+			<div class="col-4">
+				<input type="button" class="btn btn-secondary" value="Regresar"
+					onclick="location='/iniciativas/vistas/listar'">
+			</div>
+			<div class="col-4">
+				<input type="button" class="btn btn-danger" value="Eliminar"
+					onclick="eliminaIniciativa();">
+			</div>
+		</div>
+		</div>
+		</div>
+		</form>
+		</mat-card>
+		</mat-grid-tile>
+		</mat-grid-list>
+		</div>
+	</main>
+
+	<script src="/js/fontAwesome.js"></script>
+	<script src="/js/menu.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/validacionesIniciativas.js"></script>
+</body>
+
+</html>

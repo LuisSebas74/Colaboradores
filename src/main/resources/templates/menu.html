@@ -1,0 +1,43 @@
+	<header>
+        <div class="icon__menu">
+            <i class="fas fa-bars" id="btn_open"></i> 
+        </div>
+        
+        <div class = "textheader">
+        <h3> GESTOR DE COLABORADORES</h3>
+        </div>
+    </header>
+
+<div class="menu__side" id="menu_side">
+<img id="logo" class="" th:src="@{/images/logoC.png}" /> 
+	<div class="name__page">
+		<figure>
+		  <img id="imagelogo" th:src="@{/images/coppel.png}" />
+		    <!---->
+		</figure>
+	</div>
+	
+
+	<div class="options__menu">
+
+		<a href="/iniciativas/vistas/listar" class="selected">
+			<div class="option">
+			<i class="fa-regular fa-lightbulb"></i>
+				<h5>INICIATIVA</h5>
+			</div>
+		</a> <a href="/colaboradores/vistas/listar">
+			<div class="option">
+
+				<i class="fa-solid fa-id-card"></i>
+
+				<h5>COLABORADOR</h5>
+			</div>
+		</a> <a href="/asignaciones/vistas/listar">
+			<div class="option">
+				<i class="fa-regular fa-file-code"></i>
+				<h5>ASIGNACION</h5>
+			</div>
+		</a>
+	</div>
+
+</div>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="head.html">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="tipo_contenido"  content="text/html;" http-equiv="content-type" charset="utf-8">
+
+	<title>Registro de colaborador</title>
+</head>
+
+<body id="body">
+
+	<div th:include="menu.html"></div>
+
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h3 th:text="${tituloPagina}"></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<form action="/colaboradores/vistas/registro" method="post" id="envioDatos"
+						th:object="${colaboradorDTO}" >
+						<div class="row">
+							<div class="col-12">
+								<input th:value="${colaboradorDTO.idColaborador}" type="hidden" name="idColaborador"
+									class="form-control">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-4">
+								<label for="Nempleado" class="form-label"><b>Nombre del colaborador</b></label>
+								<input th:value="${colaboradorDTO.nombre}" type="text" class="form-control col-4"
+									name="nombre" id="nombreColaborador" minlength="5" pattern="[A-Za-zÁ-Úá-ú, ,]+"
+									placeholder=" ** Ingresa el nombre completo del colaborador" required autofocus
+									oninput="validador('nombreColaborador','letras')" maxlength="80"
+									th:disabled="${desactivaCampos != null}">
+							</div>
+							<div class="col-4">
+								<label for="Nempleado" class="form-label"><b>Numero
+										de colaborador</b></label> <input th:value="${colaboradorDTO.numColaborador}"
+									type="text" class="form-control" name="numColaborador" id="numeroColaborador"
+									minlength="5" pattern="^[0-9]{7,12}$"
+									placeholder=" ** Ingresa el numero del colaborador" required
+									oninput="validador('numeroColaborador','numeros')" maxlength="10"
+									th:disabled="${desactivaCampos != null}">
+							</div>
+
+							<div class="col-4">
+								<label for="Nempleado" class="form-label"><b>Comentario
+										de negocio</b></label> <input th:value="${colaboradorDTO.comentarioNegocio}"
+									type="text" class="form-control" name="comentarioNegocio" id="comentario"
+									minlength="5" placeholder="Ingresa un comentario" maxlength="500"
+									th:disabled="${desactivaCampos != null}" >
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-4">
+								<label for="Nempleado" class="form-label"><b>Correo
+										electronico</b></label> <input th:value="${colaboradorDTO.correo}" type="text"
+									class="form-control" name="correo" id="correoColaborador" minlength="5"
+									pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+									placeholder=" ** Ingresa el correo" required
+									oninput="validador('correoColaborador','correos')" maxlength="50"
+									th:disabled="${desactivaCampos != null}">
+							</div>
+							<div class="col-4">
+								<label for="Nempleado" class="form-label"><b>Ip
+										F5/VPN</b></label> <input th:value="${colaboradorDTO.ipVPN}" type="text"
+									class="form-control" name="ipVPN" id="ipF5" minlength="5"
+									pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}$" placeholder=" ** Ingresa la IP F5/VPN"
+									required oninput="validador('ipF5','direccionIp')" maxlength="15"
+									th:disabled="${desactivaCampos != null}">
+							</div>
+							<div class="col-4">
+								<label for="Nempleado" class="form-label"><b>Ip
+										de banco</b></label> <input th:value="${colaboradorDTO.ipBanco}" type="text"
+									class="form-control" name="ipBanco" id="ipBanco" minlength="5"
+									pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}$" placeholder=" ** Ingresa la IP de banco"
+									required oninput="validador('ipBanco','direccionIp')" maxlength="15"
+									th:disabled="${desactivaCampos != null}">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-4">
+								<label for="pais"><b>Tipo de colaborador</b></label> <select class="form-control"
+									id="itemCatalogoTipoColaborador" value="" name="tipoColaborador"
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" text>Selecciona una opcion</option>
+									<option value="1" text>Interno</option>
+									<option value="2" text>Externo</option>
+								</select>
+							</div>
+							<div class="col-4">
+								<label for="pais"><b>Especialidad</b></label> <select class="form-control col-sm-4"
+									id="itemCatalogoEspecialidad" value="" name="idEspecialidad"
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="especialidadItem: ${catalogoEspecialidadList}"
+										th:value="${especialidadItem.id}" th:text="${especialidadItem.titulo}"
+										th:selected="${especialidadItem.id==colaboradorDTO.idEspecialidad}">
+									</option>
+								</select>
+							</div>
+							<div class="col-4">
+								<label for="pais"><b>Empresa a la que pertenece</b></label>
+								<select class="form-control" id="itemCatalogoTipoEmpresa" value="" name="idEmpresa"
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="empresaItem: ${catalogoTipoEmpresaList}"
+										th:value="${empresaItem.id}" th:text="${empresaItem.titulo}"
+										th:selected="${empresaItem.id==colaboradorDTO.idEmpresa}">
+									</option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-4">
+								<label for="pais"><b>Centro asignado</b></label> <select class="form-control"
+									id="itemCatalogoCentro" value="" name="idCentro"
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="centroItem: ${catalogoCentroList}" th:value="${centroItem.id}"
+										th:text="${centroItem.titulo}"
+										th:selected="${centroItem.id==colaboradorDTO.idCentro}">
+									</option>
+								</select>
+							</div>
+							<div class="col-4">
+								<label for="pais"><b>Gerencia SR</b></label> <select class="form-control"
+									id="itemCatalogoGerenciaSR" value="" name="idGerenciaSR"
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="gerenciaSRItem: ${catalogoGerenciaSRList}"
+										th:value="${gerenciaSRItem.id}" th:text="${gerenciaSRItem.titulo}"
+										th:selected="${gerenciaSRItem.id==colaboradorDTO.idGerenciaSR}">
+									</option>
+								</select>
+							</div>
+							<div class="col-4">
+								<label for="pais"><b>Lider asignado</b></label> <select class="form-control"
+									id="itemCatalogoLider" value="" name="idLider"
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="LiderItem: ${catalogoLiderList}" th:value="${LiderItem.id}"
+										th:text="${LiderItem.titulo}"
+										th:selected="${LiderItem.id==colaboradorDTO.idLider}">
+									</option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-4">
+								<label for="pais"><b>Ubicacion del colaborador</b></label>
+								<select class="form-control" id="itemCatalogoUbicacion" value="" name="idUbicacion"
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="UbicacionItem: ${catalogoUbicacionList}"
+										th:value="${UbicacionItem.id}" th:text="${UbicacionItem.titulo}"
+										th:selected="${UbicacionItem.id==colaboradorDTO.idUbicacion}">
+									</option>
+								</select>
+							</div>
+							<div class="col-4">
+								<label for="pais"><b>Esquema de trabajo del
+										colaborador</b></label> <select class="form-control" id="itemCatalogoEsquema"
+									value="" name="idEsquema" th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="esquemaItem: ${catalogoEsquemaList}" th:value="${esquemaItem.id}"
+										th:text="${esquemaItem.titulo}"
+										th:selected="${esquemaItem.id==colaboradorDTO.idEsquema}">
+									</option>
+								</select>
+							</div>
+							<div class="col-4">
+								<label for="pais"><b>Puesto</b></label> <select class="form-control"
+									id="itemCatalogoPuesto" value="" name="idPuesto"
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="puestoItem: ${catalogoPuestoList}" th:value="${puestoItem.id}"
+										th:text="${puestoItem.titulo}"
+										th:selected="${puestoItem.id==colaboradorDTO.idPuesto}">
+									</option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-4">
+								<label for="pais"><b>Equipos</b></label> <select class="form-control col-sm-4"
+									id="itemCatalogoEquipo" value="" name="idEquipo" required
+									th:disabled="${desactivaCampos != null}">
+									<option value="0" selected>Selecciona una opcion</option>
+									<option th:each="equipoItem: ${catalogoEquipoList}" th:value="${equipoItem.id}"
+										th:text="${equipoItem.titulo}"
+										th:selected="${equipoItem.id==colaboradorDTO.idEquipo}">
+									</option>
+								</select>
+							</div>
+							<div class="col-4">
+							<label for="pais"><b>Skills</b></label>
+							   <select class="form-control col-sm-4"
+									id="itemCatalogoSkills" value="" size="0" name="idskill" required
+									th:disabled="${desactivaCampos != null}" >
+									<option value="0" selected></option>
+									<option th:each="skillsItem: ${catalogoSkillList}" th:value="${skillsItem.id}"
+										th:text="${skillsItem.titulo}">
+										<!--th:selected="${skillItem.id==colaboradorDTO.idSkill}"-->
+									</option>
+								</select>
+					
+						<br>
+						<div class="row">
+							<div class="col-4">
+								<input type="submit" value="Guardar" class="btn btn-success"></input>
+							</div>
+							<div class="col-4">
+								<div th:utext="${button}" class="col-2"></div>
+								<div class="col-4">
+				<input type="button" class="btn btn-secondary" value="Regresar"
+					onclick="location='/colaboradores/vistas/listar'">
+			</div>
+							</div>
+							
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="/js/fontAwesome.js"></script>
+	<script src="/js/menu.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/validaciones.js"></script>
+
+
+</body>
+
+</html>

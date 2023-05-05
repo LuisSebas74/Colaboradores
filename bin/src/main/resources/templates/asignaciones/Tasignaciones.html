@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/estilos.css">
+<script src="https://kit.fontawesome.com/41bcea2ae3.js"
+	crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<title>Asignar colaborador</title>
+<!-- th:include="header.html" -->
+</head>
+
+<body id="body">
+
+	<div th:include="menu.html"></div>
+
+	<main>
+		<section class="content">
+
+			<div class="container-fluid">
+				<span>
+					<h3>TABLA ASIGNACIONES</h3>
+				</span>
+				<div>
+
+					<form action="/asignaciones/vistas/registro" method="post"
+						id="formAsignacion">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="card ">
+									<div class="form-group ">
+										<div class="card-header">
+											<label for="pais">INICIATIVAS</label>
+										</div>
+										<select class="form-control" id="iniciativa" value=""
+											name="idIniciativa" size="8">
+
+											<option th:each="iniciativa: ${listainiciativas}"
+												th:value="${iniciativa.idIniciativa}"
+												th:text="${iniciativa.tituloIniciativa}">m</option>
+										</select>
+										<div class="card-footer"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="card">
+									<div class="form-group">
+										<div class="card">
+											<div class="card-header">
+												<label for="colaboradores">COLABORADORES</label>
+											</div>
+											<select class="form-control" id="colaborador" value=""
+												name="idColaboradorS" size="8" onchange="addInput()"
+												multiple>
+												<option th:each="colaborador: ${listaColaboradores}"
+													th:value="${colaborador.idColaborador}"
+													th:text="${colaborador.nombre} + '  (' +${colaborador.fulltime} + '%)'"></option>
+											</select>
+											<div class="card-footer"></div>
+										</div>
+									</div>
+								</div>
+								<br>
+
+							</div>
+						</div>
+						<div class="col-sm-10 mx-auto border p-4">
+							<div class="form-group">
+								<label class="form-label" for="colaborador">Colaboradores
+									seleccionados para asignación</label> 
+									<input type="hidden" class="form-control" id="colaboradoresPorcentajes" value=""
+									name="colaboradoresPorcentajes">
+								<!-- <input type="hidden" class="form-control" id="IdIniciativa" value="" name="idIniciativa"> <br> <br>-->
+										<div id="asignaciones"></div>
+								<br> <br> <input type="button" class="btn btn-primary"
+									onclick="validarPorcentajes(); " value="Enviar" />
+								<button type="button" class="btn btn-secondary"
+									onclick="location='/asignaciones/vistas/registrar'">Limpiar</button>
+								<button type="button" class="btn btn-danger"
+									onclick="location='/asignaciones/vistas/listar'">Cerrar</button>
+							</div>
+						</div>
+
+
+
+					</form>
+
+				</div>
+
+			</div>
+		</section>
+	</main>
+
+
+	<script src="/js/menu.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/funciones.js"></script>
+</body>
+
+</html>
