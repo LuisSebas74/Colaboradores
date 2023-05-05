@@ -83,7 +83,7 @@ public class AsignacionCnt {
     	AsignacionDTO asignacionDto = new AsignacionDTO();
     	asignacionDto.setIdIniciativa(Integer.parseInt(numeroIniciativa));
     	asignacionDto.setIdColaborador(Integer.parseInt(numeroColaborador));
-    	request.setParametrosQuery(asignacionDto);
+    	request.setParametrosBody(asignacionDto);
     	
     	response = asignacionesSrv.eliminar(request);
     	

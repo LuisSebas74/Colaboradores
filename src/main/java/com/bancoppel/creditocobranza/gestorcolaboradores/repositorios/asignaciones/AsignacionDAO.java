@@ -165,8 +165,7 @@ public class AsignacionDAO {
 			for(AsignacionDTO itemAsignacion :asignacionDTOs )
 			{
 				
-				ColaboradorDTO  colaboradorDTO = Utils.
-						 getClassEntityAsDto(colaboradorRepository.
+				ColaboradorDTO  colaboradorDTO = new ModelMapper().map(colaboradorRepository.
 								 findByIdColaborador(itemAsignacion.getIdColaborador()), ColaboradorDTO.class);
 				 if(colaboradorDTO != null)
 				 {

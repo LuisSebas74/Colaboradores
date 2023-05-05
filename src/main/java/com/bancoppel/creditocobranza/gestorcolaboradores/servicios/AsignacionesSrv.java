@@ -116,6 +116,9 @@ public class AsignacionesSrv implements CREEL{
 		
 		AsignacionDTO concreteAsignacionDto = (AsignacionDTO) request.getParametrosBody();
 		asignacionDao.eliminar(request);
+		if(concreteAsignacionDto.getPorcentajeAsignacion() == null){
+			concreteAsignacionDto.setPorcentajeAsignacion(0.00);
+		}
 		colaboradorDAO.aumentarPorjetajeColaborador(concreteAsignacionDto.getIdColaborador(), concreteAsignacionDto.getPorcentajeAsignacion());
 		response.setResultados(request.getParametrosBody());
 		return response;
